@@ -1,0 +1,3 @@
+# cmsi370
+CMSI 370 - Interaction Design
+Dondi
