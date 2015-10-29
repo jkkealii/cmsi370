@@ -1,22 +1,56 @@
+<!doctype html>
 <html>
-
-    <head>
-        <meta charset="utf-8">
-        <title>TwitchTV GOOO</title>
-        
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-        <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
-        <script src="frendjsass.js" type="text/javascript"></script> 
-
-    </head>
     <body>
-        <input 
+        <head>
+            <meta charset="utf-8">
+            <title>TwitchTV GOOO</title>
+            
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        
+            <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+            <script src="frendjsass.js" type="text/javascript"></script> 
+        
+            <style type="text/css">
+                .hidden {
+                    display: none;
+                }
+            </style>
+        </head>
+        
+        <h1>TwitchTV front-end assignment</h1>
+        
+        <div class="status">
+            Status: <input readonly="readonly" size="60" val="Unknown">
+        </div>
+        <div class="authenticate">
+            <img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" class="twitch-connect" href="#">
+        </div>
+    
+        <h2 class="authenticated hidden">Authenticated</h2>
+        <div class="authenticated hidden">
+            <div id="logout">
+                <button>Log Out</button>
+            </div>
+
+            <div id="get-name">
+                <button>Get TwitchTV Name</button>
+                <input readonly="readonly" size="50" value="Unknown">
+            </div>
+
+            <div id="get-stream-key">
+                <button>Get TwitchTV Stream Key</button>
+                <input readonly="readonly" size="50" value="Unknown">
+            </div>
+        </div>
+        <!--
+<input 
         type="image" 
         img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" 
         class="twitch-connect" 
         href="#" 
         alt="Submit button">
+-->
+        
     </body>
     
 </html>
