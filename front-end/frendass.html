@@ -1,55 +1,145 @@
 <!doctype html>
-<html>
-    <body>
-        <head>
-            <meta charset="utf-8">
-            <title>TwitchTV GOOO</title>
-            
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         
-            <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
-            <script src="frendjsass.js" type="text/javascript"></script> 
+        <title>TwitchTV front-end</title>
         
-            <style type="text/css">
-                .hidden {
-                    display: none;
-                }
-            </style>
-        </head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         
-        <h1>TwitchTV front-end assignment</h1>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         
-        <div class="status">
-            Status: <input readonly="readonly" size="60" val="Unknown">
-        </div>
-        <div class="authenticate">
-            <img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" class="twitch-connect" href="#">
-        </div>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     
-        <h2 class="authenticated hidden">Authenticated</h2>
-        <div class="authenticated hidden">
-            <div id="logout">
-                <button>Log Out</button>
-            </div>
+        <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+        
+        <!-- <script src="frendjsass.js" type="text/javascript"></script> --> 
+        <!-- I tried ^^^ -->
+        
+        <script>
+            window.CLIENT_ID = 'n49oe0lfq6jdohv7lidhdnfqpdw0z8u';
+            $(function() {
+                // Initialize. If we are already logged in, there is no
+                // need for the connect button
+                Twitch.init({clientId: CLIENT_ID}, function(error, status) {
+                    if (status.authenticated) {
+                        // we're logged in :)
+                        $('.status input').val('Logged in! Allowed scope: ' + status.scope);
+                        // Show the data for logged-in users
+                        $('.authenticated').removeClass('hidden');
+                    } else {
+                        $('.status input').val('Not Logged in! Better connect with Twitch!');
+                        // Show the twitch connect button
+                        $('.authenticate').removeClass('hidden');
+                    }
+                });
 
-            <div id="get-name">
-                <button>Get TwitchTV Name</button>
-                <input readonly="readonly" size="50" value="Unknown">
-            </div>
 
-            <div id="get-stream-key">
-                <button>Get TwitchTV Stream Key</button>
-                <input readonly="readonly" size="50" value="Unknown">
+                $('.twitch-connect').click(function() {
+                    Twitch.login({
+                        scope: ['user_read', 'channel_read']
+                    });
+                })
+
+                $('#logout button').click(function() {
+                    Twitch.logout();
+                    window.location = window.location.pathname
+                })
+
+                $('#get-name button').click(function() {
+                    Twitch.api({method: 'user'}, function(error, user) {
+                        $('#get-name input').val(user.display_name);
+                    });
+                })
+
+                $('#get-stream-key button').click(function() {
+                    Twitch.api({method: 'channel'}, function(error, channel) {
+                        $('#get-stream-key input').val(channel.stream_key);
+                    });
+                })
+
+            });
+  </script>
+        
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        
+        <style type="text/css">
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    
+    <body>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>TwitchTV front-end assignment</h1>
+                </div>
             </div>
         </div>
-        <!--
-<input 
-        type="image" 
-        img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" 
-        class="twitch-connect" 
-        href="#" 
-        alt="Submit button">
--->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="status">
+                        <h3>current status:</h3>
+                        <input readonly="readonly" size="60" val="Unknown">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="authenticate">
+                        <img src="http://ttv-api.s3.amazonaws.com/assets/connect_light.png" class="twitch-connect" href="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4 class="authenticated hidden">you have been authorized</h4>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="authenticated hidden">
+                        <div id="logout">
+                            <button>Log Out</button>
+                        </div>
+            
+                        <div id="get-name">
+                            <button>Get TwitchTV Name</button>
+                            <input readonly="readonly" size="50" value="Unknown">
+                        </div>
+            
+                        <div id="get-stream-key">
+                            <button>Get TwitchTV Stream Key</button>
+                            <input readonly="readonly" size="50" value="Unknown">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </body>
     
