@@ -1,44 +1,54 @@
-Twitch.init({clientId: 'n49oe0lfq6jdohv7lidhdnfqpdw0z8u'}, function(error, status) {
-    // the sdk is now loaded
-    if (error) {
-        // error encountered while loading
-        console.log(error);
-    }
-    if (status.authenticated) {
-    // user is currently logged in
-    $('.twitch-connect').hide()
-    }
-    if (status.authenticated) {
-      // we're logged in :)
-      $('.status input').val('Logged in! Allowed scope: ' + status.scope);
-      // Show the data for logged-in users
-      $('.authenticated').removeClass('hidden');
-    } else {
-      $('.status input').val('Not Logged in! Better connect with Twitch!');
-      // Show the twitch connect button
-      $('.authenticate').removeClass('hidden');
-    }
-});
-
-$('.twitch-connect').click(function() {
-    Twitch.login({
-        scope: ['user_read', 'channel_read']
+window.CLIENT_ID = 'n49oe0lfq6jdohv7lidhdnfqpdw0z8u';
+$(function() {
+    // Initialize. If we are already logged in, there is no
+    // need for the connect button
+    Twitch.init({clientId: CLIENT_ID}, function(error, status) {
+        if (status.authenticated) {
+            // we're logged in :)
+            $('.status input').val('Logged in! Allowed scope: ' + status.scope);
+            // Show the data for logged-in users
+            $('.authenticated').removeClass('hidden');
+        } else {
+            $('.status input').val('Not Logged in! Better connect with Twitch!');
+            // Show the twitch connect button
+            $('.authenticate').removeClass('hidden');
+        }
     });
-})
-    
-$('#logout button').click(function() {
+
+
+    $('.twitch-connect').click(function() {
+        Twitch.login({
+            scope: ['user_read', 'channel_read']
+        });
+    })
+
+    $('#logout button').click(function() {
         Twitch.logout();
-})
+        window.location = window.location.pathname
+    })
 
-$('#get-name button').click(function() {
-    Twitch.api({method: 'user'}, function(error, user) {
-        $('#get-name input').val(user.display_name);
-    });
-})
+    $('#get-name button').click(function() {
+        Twitch.api({method: 'user'}, function(error, user) {
+            $('#get-name input').val(user.display_name);
+        });
+    })
 
-$('#get-stream-key button').click(function() {
-    Twitch.api({method: 'channel'}, function(error, channel) {
-        $('#get-stream-key input').val(channel.stream_key);
-    });
-})
+    $('#get-stream-key button').click(function() {
+        Twitch.api({method: 'channel'}, function(error, channel) {
+            $('#get-stream-key input').val(channel.stream_key);
+        });
+    })
+    
+    $('#get-email button').click(function() {
+        Twitch.api({method: 'user'}, function(error, user) {
+            $('#get-email input').val(user.email);
+        });  
+    })
+    
+    $('#get-prof-pic button').click(function() {
+        Twitch.api({method: 'user'}, function(error, user) {
+            $('#prof-pic').append('<img src="'+user.logo+'">');
+        });
+    })
 
+});
