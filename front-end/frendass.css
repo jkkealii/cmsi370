@@ -1,0 +1,13 @@
+.hidden {
+    display: none;
+}
+
+button {
+    background-color: red;
+    font-size: 96pt;
+    transition: all 0.5s;
+}
+
+button:hover {
+    background-color: cyan;
+}
