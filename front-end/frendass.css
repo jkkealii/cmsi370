@@ -3,11 +3,19 @@
 }
 
 button {
-    background-color: red;
-    font-size: 96pt;
+    background-color: #8684d4; 
+    font-size: 20pt;
     transition: all 0.5s;
+    text-shadow: 0 1px 0 black, 0 -1px 0 black, 1px 0 0 black, -1px 0 0 black;
+    color: white;
+    margin: 0px 0px;
 }
 
 button:hover {
-    background-color: cyan;
+    background-color: #ab84d8;
+    padding-left: 50px;
+}
+
+.input-group {
+    margin: 10px 0px;
 }
