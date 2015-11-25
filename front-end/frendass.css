@@ -1,4 +1,4 @@
-.hidden {
+.hidden { /* JD: 6 */
     display: none;
 }
 
@@ -13,7 +13,7 @@ button {
 
 button:hover {
     background-color: #ab84d8;
-    padding-left: 50px;
+    padding-left: 50px; /* JD: 7 */
 }
 
 .input-group {
