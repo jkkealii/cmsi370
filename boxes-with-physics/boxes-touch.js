@@ -6,10 +6,25 @@
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
+                var potLeft = touch.pageX - touch.target.deltaX;
+                var potTop = touch.pageY - touch.target.deltaY;
+                
+                if (potTop < touch.target.boxOffset.top) {
+                    potTop = touch.target.boxOffset.top;
+                }
+                if (potLeft < touch.target.boxOffset.left) {
+                    potLeft = touch.target.boxOffset.left;
+                }
+                if (potTop + touch.target.height > touch.target.boxOffset.top + touch.target.boxHeight) {
+                    potTop = touch.target.boxOffset.top + touch.target.boxHeight - touch.target.height;
+                }
+                if (potLeft + touch.target.width > touch.target.boxOffset.left + touch.target.boxWidth) {
+                    potLeft = touch.target.boxOffset.left + touch.target.boxWidth - touch.target.width;
+                }
                 // Reposition the object.
                 touch.target.movingBox.offset({
-                    left: touch.pageX - touch.target.deltaX,
-                    top: touch.pageY - touch.target.deltaY
+                    left: potLeft,
+                    top: potTop
                 });
             }
         });
@@ -55,6 +70,15 @@
             touch.target.movingBox = jThis;
             touch.target.deltaX = touch.pageX - startOffset.left;
             touch.target.deltaY = touch.pageY - startOffset.top;
+            
+            // Height and width of target (box)
+            touch.target.height = jThis.height();
+            touch.target.width = jThis.width();
+            
+            // Store the measurements of the boundaries
+            touch.target.boxHeight = $(touch.target).parent().height();
+            touch.target.boxWidth = $(touch.target).parent().width();
+            touch.target.boxOffset = $(touch.target).parent().offset();
         });
 
         // Eat up the event so that the drawing area does not
@@ -77,13 +101,12 @@
                 element.addEventListener("touchend", endDrag, false);
             })
             
-/*
             .find("div.box").each(function (index, element) {
                 element.addEventListener("touchstart", startMove, false);
                 element.addEventListener("touchend", unhighlight, false);
             });
-*/
-
+            
+        jQueryElements
             .find("div.circleBase").each(function (index, element) {
                 element.addEventListener("touchstart", startMove, false);
                 element.addEventListener("touchend", unhighlight, false);
