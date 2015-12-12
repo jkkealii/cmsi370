@@ -69,8 +69,8 @@
                 left: potLeft,
                 top: potTop
             });
-            element.YVelocity += (acc.y * 0.0333);
-            element.XVelocity -= (acc.x * 0.0333);
+            element.YVelocity -= (acc.y * 0.0333);
+            element.XVelocity += (acc.x * 0.0333);
         }    
     }
     

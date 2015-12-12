@@ -44,11 +44,13 @@ $(function() {
             $('#get-email input').val(user.email); // JD: 14
         });  
     }) // JD: 12
-
+    
     $('#get-prof-pic button').click(function() { // JD: 9
         Twitch.api({method: 'user'}, function(error, user) { // JD: 9, 10
-            $('#prof-pic').append('<img src="'+user.logo+'">'); // JD: 15, 16
+            $('#prof-pic').append('<img src="'+user.logo+'" width="250" height="250" class="image"'+'>'); // JD: 15, 16
+            // resize image plug-in
+            $(".image").resizeImage();
         });
     }) // JD: 12
-
+    
 });
