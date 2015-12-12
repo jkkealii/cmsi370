@@ -12,7 +12,7 @@ NOTE: DUE TO CROSS-BROWSER COMPATIBILITY ISSUES, I WAS FORCED TO MAKE A DECISION
     */
         newX = evt.clientX || evt.pageX || evt.screenX;
         newY = evt.clientY || evt.pageY || evt.screenY;
-        
+
         eval(evt.target.id+".width=newX");
         eval(evt.target.id+".height=newY");
         
