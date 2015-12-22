@@ -14,7 +14,7 @@ $(function() {
             $('.authenticate').removeClass('hidden');
         }
     });
-    $(".image").resizeImage();
+    $(".image").resizeImage(); // JD 1211: 9
 
 
     $('.twitch-connect').click(function() { // JD: 9
