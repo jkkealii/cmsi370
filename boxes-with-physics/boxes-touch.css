@@ -19,19 +19,19 @@
     border-radius: 50%;
 }
 
-.type1 {
+.type1 { /* JD: 2 */
     width: 100px;
     height: 100px;
     background: yellow;
     border: thin solid red;
 }
-.type2 {
+.type2 { /* JD: 2 */
     width: 50px;
     height: 50px;
     background: #ccc;
     border: thin solid #000;
 }
-.type3 {
+.type3 { /* JD: 2 */
     width: 200px;
     height: 200px;
     background: aqua;

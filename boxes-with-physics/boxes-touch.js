@@ -7,7 +7,7 @@
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
                 var priorOffset = touch.target.movingBox.offset();
-                var potLeft = touch.pageX - touch.target.deltaX;
+                var potLeft = touch.pageX - touch.target.deltaX; // JD: 3
                 var potTop = touch.pageY - touch.target.deltaY;
                 
                 // make sure we are within the boundaries
@@ -43,34 +43,34 @@
     };
     
     var flick = function (element, acc) {
-        if (!element.isMoved) {
+        if (!element.isMoved) { // JD: 4
             var priorOffset = element.movingBox.offset();
-            var potTop = priorOffset.top + (element.YVelocity * 13);
-            var potLeft = priorOffset.left + (element.XVelocity * 13);
+            var potTop = priorOffset.top + (element.YVelocity * 13); // JD: 4
+            var potLeft = priorOffset.left + (element.XVelocity * 13); // JD: 4
 
             if (potTop < element.boxOffset.top) {
                 potTop = element.boxOffset.top;
-                element.YVelocity *= -0.981;
+                element.YVelocity *= -0.981; // JD: 4
             }
             if (potLeft < element.boxOffset.left) {
                 potLeft = element.boxOffset.left;
-                element.XVelocity *= -0.981;
+                element.XVelocity *= -0.981; // JD: 4
             }
             if (potTop + element.height > element.boxOffset.top + element.boxHeight) {
                 potTop = element.boxOffset.top + element.boxHeight - element.height;
-                element.YVelocity *= -0.981;
+                element.YVelocity *= -0.981; // JD: 4
             }
             if (potLeft + element.width > element.boxOffset.left + element.boxWidth) {
                 potLeft = element.boxOffset.left + element.boxWidth - element.width;
-                element.XVelocity *= -0.981;
+                element.XVelocity *= -0.981; // JD: 4
             }
             // Reposition the object.
             element.movingBox.offset({
                 left: potLeft,
                 top: potTop
             });
-            element.YVelocity -= (acc.y * 0.0333);
-            element.XVelocity += (acc.x * 0.0333);
+            element.YVelocity -= (acc.y * 0.0333); // JD: 4
+            element.XVelocity += (acc.x * 0.0333); // JD: 4
         }    
     }
     
@@ -130,7 +130,7 @@
             touch.target.width = jThis.width();
             touch.target.isMoved = true;
             
-            // Store the measurements of the boundaries
+            // Store the measurements of the boundaries // JD: 5
 /*
             touch.target.boxHeight = $(touch.target).parent().height();
             touch.target.boxWidth = $(touch.target).parent().width();
@@ -187,7 +187,7 @@
         }, true);
         window.addEventListener("devicemotion", function (event) {
             trackFlick(event, jQueryElements.find("div.circleBase"));
-        }, true);
+        }, true); // JD: 6
     };
 
     $.fn.boxesTouch = function () {
